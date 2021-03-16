@@ -1,0 +1,80 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: rgba(136, 135, 135, 0.685) ;
+    background-size: cover;
+    background-position:center;
+    font-family: sans-serif;
+}
+.login_page{
+    width:360px;
+    padding:10% 0 0;
+    margin :auto;
+}
+.form{
+    position:relative;
+    z-index: 1;
+    background:rgba(136, 135, 135, 0.685);
+    max-width: 360px;
+    margin: 0 auto 100px;
+    padding:45px;
+    text-align: center;
+}
+.form input{
+    outline: none;
+    background: #b9b8b8;
+    width:100%;
+    border:0;
+    margin: 0 0 15px;
+    padding:15px;
+    box-sizing: border-box;
+    font-size: 14px;
+    color:#ffffff
+}
+.form textarea{
+    outline: none;
+    background:rgba(136, 135, 135, 0.685) ;
+    width:100%;
+    border:0;
+    margin: 0 0 15px;
+    padding:15px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.form button{
+    text-transform: uppercase;
+    outline: 0;
+    background:orange;
+    width:100%;
+    border:none;
+    padding:15px;
+    color:#fff;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.5s;
+}
+.form button:hover,.form button:active{
+    background:green;
+    border:none;
+}
+.form .message{
+    margin:15px 0 0;
+    color:#fff;
+    font-size: 12px;
+}
+.form .message a{
+    color:orange;
+    text-decoration: none;
+}
+.user{
+margin-top: 6rem;
+}
+.user .msg{
+    color: rgb(241, 141, 26);
+    font-size: 25px;
+    text-align: center;
+
+}
