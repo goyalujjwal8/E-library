@@ -76,7 +76,9 @@
                     <input type='text' name='bookname' id='bookname' value="<?php echo $result['bookname'];?>">
                     <input type='text' name='authorname' id='authorname' value="<?php echo $result['authorname'];?>">
                     <textarea name='bookdetails' id='bookdetails'><?php echo $result['bookdetails'];?></textarea>
+                    <label style="color: black;">Book Cover</label>
                     <input type='file' name='file' id='bookimage' value="<?php echo $result['bookimage']?>">
+                    <label style="color: black;">Book pdf</label>
                     <input type='file' name='pdf' id='pdf' value="<?php echo $result['pdf']?>">
                 <button>SAVE</button><br>
                 </form>

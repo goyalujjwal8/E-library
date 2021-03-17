@@ -34,7 +34,9 @@
           $_SESSION['email']=$email;
               $_SESSION['name']=$r['name'];
               $_SESSION['uid']=$r['uid'];
-      }else{echo "<script>alert('Enter Valid Email/Password')</alert";}
+      }else{ 
+        echo "<script>alert('Enter Valid Email/Password')</script>";
+      }
     }
 
         ?>

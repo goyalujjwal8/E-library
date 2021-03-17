@@ -24,13 +24,13 @@ if(isset($_POST['upload'])){
    
     if(mysqli_num_rows($result)>0){
 
-        echo "Already registered";
+        echo "<script>alert('Already registered')</script>";
     }else{
     $sql="INSERT INTO  `users` (`uid`, `name`, `password`, `email`, `usertype`) VALUES (NULL,'$name', '$password', '$email', '$usertype')";
                $in= mysqli_query($con,$sql);
 
                    echo "<script>alert('Successfully registered')</script>";
-                   header("location: adminlist.php");
+                   //header("location: adminlist.php");
             }       
         }
        

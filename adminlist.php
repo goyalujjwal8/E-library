@@ -30,20 +30,26 @@ $i = 0;
               <th>Admin ID</th>
               <th>Name</th>
               <th>Email</th>
+              <th></th>
           </tr>
        </thead>
-       </table>
-<?php while($i < count($daa)){ ?>
-        <table class="responsive-table">
+       
+      
+       
         <tbody>
+        <?php while($i < count($daa)){ ?>
           <tr>
             <td><?php echo $daa[$i]['uid'];?></td>
             <td><?php echo $daa[$i]['name'];?></td>
             <td><?php echo $daa[$i]['email'];?></td>
+            <?php if($_SESSION['email']!=$daa[$i]['email']){?>
+            <td><a href='deleteadmin.php?<?php echo $daa[$i]['uid']?>' class='modal-close waves-effect waves-green btn-flat' style="background-color: red;">Delete Admin</a></td>
+              <?php }?>
           </tr>
+          <?php $i++;}?>
         </tbody>
       </table>
- <?php $i++; }
+ <?php 
  echo "<ul><li><a href='adminform.php' style='background-color:orange;' class='btn waves-effect waves-light'>Add New Admin<i class='material-icons right'>send</i></a></li></ul>
  </div>";
   }   ?>

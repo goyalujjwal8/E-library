@@ -17,7 +17,7 @@ $data = mysqli_query($con,$query);
 $result = mysqli_fetch_assoc($data);
  ?>
    <div class="row" >
-    <div class="col s12 m7">
+    <div class="col s12 m5">
       <div class="card">
         <div class="card-image" >
           <img src="<?php echo './upload/image/'.$result['bookimage'];?>" style="height: 500px;">
@@ -34,7 +34,9 @@ $result = mysqli_fetch_assoc($data);
                         echo "<ul><li><a href='./upload/pdf/$result[pdf]'>Read</a></li></ul>";
       }else if(isset($_SESSION['email']) && $_SESSION['usertype'] == 1){
       
-        echo "<ul><li>
+        echo "<ul>
+        <li>
+        <a class='btn waves-effect waves-light' href='./upload/pdf/$result[pdf]'>Read</a>
         <a class='btn waves-effect waves-light' href='edit.php?$result[bid]' style='background-color: orange;'>Edit</a>
         <button data-target='modal1' class='btn modal-trigger' style='background-color: red;'>Delete</button>
         <div id='modal1' class='modal'>
