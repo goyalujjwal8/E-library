@@ -30,20 +30,44 @@ $i = 0;
               <th>User ID</th>
               <th>Name</th>
               <th>Email</th>
+              <th>User Response</th>
           </tr>
           </thead>
-</table>
-<?php while($i < count($daa)){ ?>
-        <table class="responsive-table">
         <tbody>
+        <?php while($i < count($daa)){ ?>
           <tr>
             <td><?php echo $daa[$i]['uid'];?></td>
             <td><?php echo $daa[$i]['name'];?></td>
             <td><?php echo $daa[$i]['email'];?></td>
+            <td>
+            <?php
+            $int=$daa[$i]['uid'];
+            $quer="select * from has_book where uid='$int'";
+            $run=mysqli_query($con,$quer);
+            $num=mysqli_num_rows($run);
+            $dat=[];
+            if($num>0){
+            while( $rows=mysqli_fetch_array($run)){
+              $dat[]=$rows;
+            }}
+            $k=0;
+            while($k<$num){
+            $in=$dat[$k]['bid'];
+            $q="SELECT `bookname` FROM `books` WHERE `bid` = $in ";
+            $e=mysqli_query($con,$q);
+            $j=mysqli_fetch_assoc($e); ?>
+            <a style="color: black;" href=<?php echo ("./details.php?".$in)?>><?php if($dat[$k]['action']=='reading') {echo 'Reading : '.$j['bookname'].',';}?></a>
+            <a style="color: black;" href=<?php echo ("./details.php?".$in)?>><?php if($dat[$k]['action']=='wishlisted') {echo 'Wishlisted : '.$j['bookname'].',';}?></a>
+            <a style="color: black;" href=<?php echo ("./details.php?".$in)?>><?php if($dat[$k]['action']=='finished') {echo 'Finished : '.$j['bookname'].',';}?></a>
+           <?php $k++;}
+            ?> </td>
+            
+            <td><a href='deleteuser.php?<?php echo $daa[$i]['uid']?>' class='modal-close waves-effect waves-green btn-flat' style="background-color:red">Delete User</a></td>
           </tr>
+          <?php  $i++; }?>
         </tbody>
       </table>
- <?php $i++; }
+ <?php
 
   }   ?>
   

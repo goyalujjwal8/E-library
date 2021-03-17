@@ -66,10 +66,9 @@
                             if (isset($_SESSION['email']) && $_SESSION['usertype'] == 1) {
                                 echo "
                                 <li><a href='userprofile.php' style='color:white;'> $_SESSION[name]<i class='material-icons right'>person</i></a></li>
-                            
-                                <li><a href='logout.php'>Logout</a></li>
-                                <li><a class='dropdown-trigger bt' href='#!' data-target='dropdown1' style='background-color:orange;'>Control Panel<i class='material-icons right'>expand_more</i></a></li>";
-                                echo " <ul id='dropdown1' class='dropdown-content'>
+                                <li><a class='dropdown-trigger bt' href='#!' data-target='dropdown1' style='background-color:orange;'>Control Panel<i class='material-icons right'>expand_more</i></a></li>
+                                <li><a href='logout.php'>Logout</a></li>";
+                                echo " <ul id='dropdown1' class='dropdown-content' style='background-color:orange'>
                                 <li><div class='divider'></div></li>
                                 <li><a href='books.php' style='color:white;'>Add New Book</a></li>
                                 <li><a href='adminlist.php' style='color:white;'>List Admin</a></li>

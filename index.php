@@ -26,7 +26,7 @@ if(($_POST['action']=='reading')&&( mysqli_num_rows($s)>0)){
  $u= "SELECT uid FROM users WHERE email = '$_SESSION[email]'";
  $e=mysqli_query($con,$u);
  $result=mysqli_fetch_assoc($e);
-
+ 
 $q="INSERT INTO `has_book` (`uid`,`bid`,`action`) VALUES ('$result[uid]', '$_POST[bid]', '$action') ON DUPLICATE KEY UPDATE    
       `action`='$action'"; 
 $d = mysqli_query($con,$q);
@@ -66,7 +66,7 @@ while($i < count($daa)){
             <div class="card-action">
             <a href= <?php echo ("./details.php?".$daa[$i]["bid"])?> style="size: 20px;">Details</a>
             </div>
-            <?php if (isset($_SESSION['email']) && $_SESSION['usertype'] == 0){ ?>
+            <?php if (isset($_SESSION['email']) &&isset ($_SESSION['usertype'])){ ?>
             <div class='card-action'>
               <form action='#' method="POST" name="form1">
               <p><span style='color: orange';>Mark As:</span> 

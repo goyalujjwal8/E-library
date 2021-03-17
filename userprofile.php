@@ -21,17 +21,17 @@ $data=[];
 if($num>0){
  while( $row=mysqli_fetch_array($run)){
    $data[]=$row;
- }
+ }}
  $i=0;
-?>
-<div class="Container">
+ ?>
   <div class="row">
-    <div class="col s5">
+    <div class="col s12 m5">
             <div class="card">
-                <div class="card-content" style="background-color: grey;">
+                <div class="card-image">
                   <img src="./upload/image/photo.jfif" style="background:center"><br>
                   <?php echo " <h3 style='color:orange;'>$_SESSION[name]</h3>";?>
                 </div>
+               <?php if (isset($_SESSION['email']) && $_SESSION['usertype'] == 0) { ?>
                 <div class="card-tabs">
                   <nav>
                       <div class="nav-wrapper">
@@ -42,23 +42,27 @@ if($num>0){
                         </div>
                       </div>
                  </nav>
-              </div>
+              </div> <?php }?>
           </div>
-          <?php  while($i<$num){?>
+          <?php  while($i<$num){
+            $in=$data[$i]['bid'];
+            $q="SELECT `bookname` FROM `books` WHERE `bid` = $in ";
+            $e=mysqli_query($con,$q);
+            $j=mysqli_fetch_assoc($e);
+            ?>
             <div class="card-content grey lighten-4">
           <div class="card" id="reading">
-          <h3><?php if($data[$i]['action']=='reading') {echo 'Reading : '.$data[$i]['bid'];}?></h3>
+          <h5><a style="color: black;" href=<?php echo ("./details.php?".$in)?>><?php if($data[$i]['action']=='reading') {echo 'Reading : '.$j['bookname'];}?></a></h5>
           </div>
           <div class="card" id="wishlist">
-          <h3><?php if($data[$i]['action']=='wishlisted') {echo 'Wishlisted : '.$data[$i]['bid'];}?></h3>
+          <h5><a style="color: black;" href=<?php echo ("./details.php?".$in)?>><?php if($data[$i]['action']=='wishlisted') {echo 'Wishlisted : '.$j['bookname'];}?></a></h5>
           </div>
           <div class="card" id="finished">
-          <h3><?php if($data[$i]['action']=='finished') {echo 'Finished : '.$data[$i]['bid'];}?></h3>
+          <h5><a style="color: black;" href=<?php echo ("./details.php?".$in)?>><?php if($data[$i]['action']=='finished') {echo 'Finished : '.$j['bookname'];}?></a></h5>
           </div>
           </div>
-          <?php $i++;} } ?>
+          <?php $i++;} ?>
       </div>
   </div>
-</div>
 </body>
 </html>

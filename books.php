@@ -12,7 +12,7 @@
     <?php
     include "header.php";
     include "conn.php";
-    
+    //header("location: index.php");
     if(isset($_POST['upload'])){
 
     $bookname = '';
@@ -55,13 +55,13 @@
 
                 $query="INSERT INTO  `books` (`bid`, `bookname`, `authorname`, `bookdetails`, `bookimage`, `pdf`) VALUES (NULL, '$bookname','$authorname', '$bookdetails', '$bookimage', '$pdf')";
                 $insert=mysqli_query($con,$query);
-
-                    echo "<script>alert('The Book has been uploaded successfully.')</script>";
-                    header("location: index.php");
+                    if($insert==true){
+                    echo "<script>alert('The Book has been uploaded successfully.')</script>";}
+                    
+                 }
                 
-                  
-            }
     }
+   
     $con->close();
 
     ?>
@@ -73,7 +73,9 @@
                  <input type="text" name="bookname" id="bookname" placeholder="Enter Book Name *">
                 <input type="text" name="authorname" id="authorname" placeholder="Enter Author Name *">
                 <textarea name="bookdetails" id="bookdetails" placeholder="Enter Book Details *"></textarea>
+                <label style="color: black;">Book Cover</label>
                 <input type="file" id="file" name="file" accept="image/x-png,image/gif,image/jpeg">
+                <label style="color: black;">Book pdf</label>
                 <input type="file" id="pdf" name="pdf" accept="pdf">  
                 <button type ="submit" name="upload" value="1">SAVE</button>
                 </form>
