@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +11,7 @@
 <?php
 include "header.php";
 include "conn.php";
-
+if ((isset($_SESSION['email']) && $_SESSION['usertype']==1)||(isset($_SESSION['email']) && $_SESSION['usertype']==0)){
 $query = "select * from users where usertype=1";
 
 $data = mysqli_query($con,$query);
@@ -30,7 +31,7 @@ $i = 0;
               <th>Admin ID</th>
               <th>Name</th>
               <th>Email</th>
-              <th></th>
+              <th>Response</th>
           </tr>
        </thead>
        
@@ -42,6 +43,27 @@ $i = 0;
             <td><?php echo $daa[$i]['uid'];?></td>
             <td><?php echo $daa[$i]['name'];?></td>
             <td><?php echo $daa[$i]['email'];?></td>
+            <td><?php
+            $int=$daa[$i]['uid'];
+            $quer="select * from has_book where uid='$int'";
+            $run=mysqli_query($con,$quer);
+            $num=mysqli_num_rows($run);
+            $dat=[];
+            if($num>0){
+            while( $rows=mysqli_fetch_array($run)){
+              $dat[]=$rows;
+            }}
+            $k=0;
+            while($k<$num){
+            $in=$dat[$k]['bid'];
+            $q="SELECT `bookname` FROM `books` WHERE `bid` = $in ";
+            $e=mysqli_query($con,$q);
+            $j=mysqli_fetch_assoc($e); ?>
+            <a style="color: black;" href=<?php echo ("./details.php?".$in)?>><?php if($dat[$k]['action']=='reading') {echo 'Reading : '.$j['bookname'].',';}?></a>
+            <a style="color: black;" href=<?php echo ("./details.php?".$in)?>><?php if($dat[$k]['action']=='wishlisted') {echo 'Wishlisted : '.$j['bookname'].',';}?></a>
+            <a style="color: black;" href=<?php echo ("./details.php?".$in)?>><?php if($dat[$k]['action']=='finished') {echo 'Finished : '.$j['bookname'].',';}?></a>
+           <?php $k++;}
+            ?></td>
             <?php if($_SESSION['email']!=$daa[$i]['email']){?>
             <td><a href='deleteadmin.php?<?php echo $daa[$i]['uid']?>' class='modal-close waves-effect waves-green btn-flat' style="background-color: red;">Delete Admin</a></td>
               <?php }?>
@@ -53,6 +75,6 @@ $i = 0;
  echo "<ul><li><a href='adminform.php' style='background-color:orange;' class='btn waves-effect waves-light'>Add New Admin<i class='material-icons right'>send</i></a></li></ul>
  </div>";
   }   ?>
-  
+  <?php } else{header("location: error.php");}?>
 </body>
 </html>

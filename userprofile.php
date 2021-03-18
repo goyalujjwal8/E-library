@@ -10,7 +10,7 @@
 <?php
 include "header.php";
 include "conn.php";
-
+if ((isset($_SESSION['email']) && $_SESSION['usertype']==1)||(isset($_SESSION['email']) && $_SESSION['usertype']==0)){
 $query="select * from has_book where uid='$_SESSION[uid]'";
 //var_dump($query);
 $run=mysqli_query($con,$query);
@@ -64,5 +64,6 @@ if($num>0){
           <?php $i++;} ?>
       </div>
   </div>
+  <?php } else{header("location: error.php");}?>
 </body>
 </html>

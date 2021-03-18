@@ -63,10 +63,11 @@ while($i < count($daa)){
             <span class="card-title"><?php echo $daa[$i]['bookname'];?></span>
               <p><?php echo ("By-".$daa[$i]['authorname'])?></p>
             </div>
-            <div class="card-action">
+            
+            <?php if (isset($_SESSION['email']) && isset ($_SESSION['usertype'])){ ?>
+              <div class="card-action">
             <a href= <?php echo ("./details.php?".$daa[$i]["bid"])?> style="size: 20px;">Details</a>
             </div>
-            <?php if (isset($_SESSION['email']) &&isset ($_SESSION['usertype'])){ ?>
             <div class='card-action'>
               <form action='#' method="POST" name="form1">
               <p><span style='color: orange';>Mark As:</span> 

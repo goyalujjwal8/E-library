@@ -12,7 +12,7 @@
     <?php
     include "header.php";
     include "conn.php";
-    //header("location: index.php");
+    if ((isset($_SESSION['email']) && $_SESSION['usertype']==1)||(isset($_SESSION['email']) && $_SESSION['usertype']==0)){ 
     if(isset($_POST['upload'])){
 
     $bookname = '';
@@ -56,12 +56,9 @@
                 $query="INSERT INTO  `books` (`bid`, `bookname`, `authorname`, `bookdetails`, `bookimage`, `pdf`) VALUES (NULL, '$bookname','$authorname', '$bookdetails', '$bookimage', '$pdf')";
                 $insert=mysqli_query($con,$query);
                     if($insert==true){
-                    echo "<script>alert('The Book has been uploaded successfully.')</script>";}
-                    
-                 }
-                
+                    echo "<script>alert('The Book has been uploaded successfully.')</script>";}  
+                 }      
     }
-   
     $con->close();
 
     ?>
@@ -82,5 +79,6 @@
             </div>
          </div>
     </div>
+    <?php } else{header("location: error.php");}?>
 </body>
 </html>

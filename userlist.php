@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +11,7 @@
 <?php
 include "header.php";
 include "conn.php";
-
+if ((isset($_SESSION['email']) && $_SESSION['usertype']==1)||(isset($_SESSION['email']) && $_SESSION['usertype']==0)){
 $query = "select * from users where usertype=0";
 
 $data = mysqli_query($con,$query);
@@ -70,6 +71,6 @@ $i = 0;
  <?php
 
   }   ?>
-  
+  <?php } else{header("location: error.php");}?>
 </body>
 </html>

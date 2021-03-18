@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +10,8 @@
     <?php
     include "./header.php";
     include "conn.php";
+    if ((isset($_SESSION['email']) && $_SESSION['usertype']==1)||(isset($_SESSION['email']) && $_SESSION['usertype']==0)){
+
     if(isset($_POST['bid'])){
     $bid=$_POST['bid'];
 
@@ -39,7 +42,7 @@
         $bookdetails = trim($_POST['bookdetails']);
     }
 
-    $target="./upload/".basename($_FILES['file']['name']);
+    $target="./upload/image".basename($_FILES['file']['name']);
     $bookimage=$_FILES['file']['name'];
 
     $target1="./upload/pdf/".basename($_FILES['pdf']['name']);
@@ -78,13 +81,13 @@
                     <textarea name='bookdetails' id='bookdetails'><?php echo $result['bookdetails'];?></textarea>
                     <label style="color: black;">Book Cover</label>
                     <input type='file' name='file' id='bookimage' value="<?php echo $result['bookimage']?>">
-                    <label style="color: black;">Book pdf</label>
+                    <label style="color: black;">Book pdf</label> 
                     <input type='file' name='pdf' id='pdf' value="<?php echo $result['pdf']?>">
                 <button>SAVE</button><br>
                 </form>
             </div>
       </div>
 </div>
-
+<?php } else{header("location: error.php");}?>
 </body>
 </html>

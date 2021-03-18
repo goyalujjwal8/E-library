@@ -10,6 +10,7 @@
 <?php
 include "header.php";
 include "conn.php";
+if ((isset($_SESSION['email']) && $_SESSION['usertype']==1)||(isset($_SESSION['email']) && $_SESSION['usertype']==0)){
 $in=$_SERVER['QUERY_STRING'];
 
 $query = "SELECT * FROM `books` WHERE bid=$in";
@@ -70,5 +71,6 @@ $result = mysqli_fetch_assoc($data);
   });
 
     </script>
+    <?php } else{header("location: error.php");}?>
 </body>
 </html>

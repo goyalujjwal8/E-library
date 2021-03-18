@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +11,7 @@
 <?php 
 include "header.php";
 include "conn.php";
+if ((isset($_SESSION['email']) && $_SESSION['usertype']==1)||(isset($_SESSION['email']) && $_SESSION['usertype']==0)){
 if(isset($_POST['upload'])){
     $name = $_POST['name'];
     $email = $_POST['email'];
@@ -49,5 +51,6 @@ if(isset($_POST['upload'])){
    </div>
 </div>
 </div>
+<?php } else{header("location: error.php");}?>
 </body>
 </html>
