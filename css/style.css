@@ -70,7 +70,7 @@ body{
     text-decoration: none;
 }
 .user{
-margin-top: 6rem;
+     margin-top: 6rem;
 }
 .user .msg{
     color: rgb(241, 141, 26);
@@ -78,3 +78,64 @@ margin-top: 6rem;
     text-align: center;
 
 }
+.war{
+    padding:10px;
+    font-size: 20px;
+    font-weight: 100;
+    border-radius: 1px;
+    border:chocolate;
+    outline: none;
+    background: #e69100;
+    letter-spacing: 0px;
+    cursor: pointer;
+  }
+  .alert{
+    background: #ffdb9b;
+    padding: 20px 40px;
+    min-width: 420px;
+    position:absolute;
+    right:-1rem;
+    top:7rem;
+    border-radius: 4px;
+    border-left: 8px solid #ffa502;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 999;
+  }
+  .alert.showAlert{
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .alert.show{
+    animation: show_slide 2s ease forwards;
+  }
+  @keyframes show_slide {
+    0%{
+      transform: translateX(100%);
+    }
+    
+  }
+  .alert.hide{
+    animation: hide_slide 2s ease forwards;
+  }
+  @keyframes hide_slide {
+    0%{
+      transform: translateX(-10px);
+    }
+   
+  }
+  .alert .fa-exclamation-circle{
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ce8500;
+    font-size: 30px;
+  }
+  .alert .msg{
+    padding: 0 20px;
+    font-size: 18px;
+    color: #ce8500;
+  }
+  
