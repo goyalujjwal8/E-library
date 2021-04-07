@@ -9,6 +9,6 @@
         echo "<script>alert('Book Deleted Successfully')</script>";
         
     ?>
-<?php
+    <?php
     header('location: index.php');
     ?>

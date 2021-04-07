@@ -18,7 +18,11 @@ if(isset($_POST['upload'])){
 
     if(empty(trim($_POST['name']))){
         $name_err = "Name cannot be blank";
-        echo "<script>alert('$name_err')</script>";
+        echo "<div class='alert hide'>
+                    <span class='fas fa-exclamation-circle'></span>
+                    <span class='msg'>$name_err</span>
+                      <span class='fas fa-times'></span>
+                    </div>";
     }
     else{
         $name = trim($_POST['name']);
@@ -26,40 +30,54 @@ if(isset($_POST['upload'])){
 
     if(empty(trim($_POST['email']))){
         $email_err = "Email cannot be blank";
-        echo "<script>alert('$email_err')</script>";
+        echo "<div class='alert hide'>
+        <span class='fas fa-exclamation-circle'></span>
+        <span class='msg'>$email_err</span>
+          <span class='fas fa-times'></span>
+        </div>";
     }
     else{
         $email = trim($_POST['email']);
     }
     if(empty(trim($_POST['password']))){
         $password_err = "Password cannot be blank";
-        echo "<script>alert('$password_err')</script>";
+        echo "<div class='alert hide'>
+        <span class='fas fa-exclamation-circle'></span>
+        <span class='msg'>$password_err</span>
+          <span class='fas fa-times'></span>
+        </div>";
     }
     else{
         $password = trim($_POST['password']);
     }
-    //$pass= password_hash($password,PASSWORD_BCRYPT);
+    //$pass= password_hash($password,PASSWORD_BCRYPT)
 
     $s="SELECT * FROM users WHERE email='$email'";
     $result=mysqli_query($con,$s);
 
     if(empty($name_err) && empty($email_err) && empty($password_err)){
         if(mysqli_num_rows($result)>0){
-
-            echo "<script>alert('Already Registered')</script>";
+              echo "<div class='alert hide'>
+              <span class='fas fa-exclamation-circle'></span>
+              <span class='msg'>Already Registered</span>
+                <span class='fas fa-times'></span>
+              </div>";
         }else{
-        $sql="INSERT INTO  `users` (`uid`, `name`, `password`, `email`, `usertype`) VALUES (NULL,'$name', '$password', '$email', '$usertype')";
+                $sql="INSERT INTO  `users` (`uid`, `name`, `password`, `email`, `usertype`) VALUES (NULL,'$name', '$password', '$email', '$usertype')";
                 $in= mysqli_query($con,$sql);
                 
                 if($in==true){
-                    echo "<script>alert('Successfully Registered')</script>";
+                    echo "<div class='alert hide'>
+                    <span class='fas fa-exclamation-circle'></span>
+                    <span class='msg'>Successfully Registered</span>
+                      <span class='fas fa-times'></span>
+                    </div>";
                     header('location: login.php');
-          }
-                
+                }
         }
     }
        
-    }
+ }
 
 ?>
 <div class="user">
@@ -75,5 +93,16 @@ if(isset($_POST['upload'])){
    </div>
 </div>
 </div>
+<script>
+     $(function(){
+        $('.alert').addClass("show");
+        $('.alert').removeClass("hide");
+        $('.alert').addClass("showAlert");
+        setTimeout(function(){
+          $('.alert').removeClass("show");
+          $('.alert').addClass("hide");
+        },5000);
+      });
+  </script>
 </body>
 </html>

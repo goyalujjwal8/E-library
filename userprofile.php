@@ -22,48 +22,88 @@ if($num>0){
  while( $row=mysqli_fetch_array($run)){
    $data[]=$row;
  }}
- $i=0;
+
  ?>
   <div class="row">
-    <div class="col s12 m5">
+    <div class="col s6 m5">
             <div class="card">
                 <div class="card-image">
                   <img src="./upload/image/photo.jfif" style="background:center"><br>
                   <?php echo " <h3 style='color:orange;'>$_SESSION[name]</h3>";?>
                 </div>
-               <?php if (isset($_SESSION['email']) && $_SESSION['usertype'] == 0) { ?>
                 <div class="card-tabs">
-                  <nav>
-                      <div class="nav-wrapper">
-                        <div class="col s12" style="background-color: orange;">
-                          <a href="#reading" class="breadcrumb">Reading</a>
-                          <a href="#wishlist" class="breadcrumb">Wishlist</a>
-                          <a href="#finished" class="breadcrumb">Finished</a>
-                        </div>
-                      </div>
+                  <nav style="background-color: orange;">
+                      
                  </nav>
-              </div> <?php }?>
+              </div> 
           </div>
-          <?php  while($i<$num){
+    </div>
+    <div class="col s6 m5">
+            <div class="card-content grey lighten-4">
+          <div class="card" id="reading">
+          <h5 style="color: orange;">Reading : </h5>
+          <?php  $i=0;  while($i<$num){
             $in=$data[$i]['bid'];
             $q="SELECT `bookname` FROM `books` WHERE `bid` = $in ";
             $e=mysqli_query($con,$q);
             $j=mysqli_fetch_assoc($e);
             ?>
-            <div class="card-content grey lighten-4">
-          <div class="card" id="reading">
-          <h5><a style="color: black;" href=<?php echo ("./details.php?".$in)?>><?php if($data[$i]['action']=='reading') {echo 'Reading : '.$j['bookname'];}?></a></h5>
+          <h5><a style="color: black;" href=<?php echo ("./details.php?".$in)?>><?php if($data[$i]['action']=='reading') {echo $j['bookname'] ?></a> 
+            
+             <button data-target='modal1' class='btn modal-trigger' style='background-color: red;'>Finished</button>
+                <div id='modal1' class='modal'>
+                  <div class='modal-content'>
+                    <h4>Are You Sure?</h4>
+                    <p>You Have Finished the Book</p>
+                  </div>
+                  <div class='modal-footer'>
+                    <a href='<?php echo ("./update.php?".$in)?>' class='modal-close waves-effect waves-green btn-flat'>Yes</a>
+                    <a href='#' class='modal-close waves-effect waves-green btn-flat'>No</a>
+                  </div>
+                </div>
+            <?php ;}?></h5>
+
+
+          <?php $i++;} ?>
           </div>
+          
           <div class="card" id="wishlist">
-          <h5><a style="color: black;" href=<?php echo ("./details.php?".$in)?>><?php if($data[$i]['action']=='wishlisted') {echo 'Wishlisted : '.$j['bookname'];}?></a></h5>
+          <h5 style="color: orange;">Wishlisted : </h5>
+          <?php $i=0;  while($i<$num){
+            $in=$data[$i]['bid'];
+            $q="SELECT `bookname` FROM `books` WHERE `bid` = $in ";
+            $e=mysqli_query($con,$q);
+            $j=mysqli_fetch_assoc($e);
+            ?>
+          <h5><a style="color: black;" href=<?php echo ("./details.php?".$in)?>><?php if($data[$i]['action']=='wishlisted') {echo $j['bookname'];}?></a></h5>
+          <?php $i++;} ?>
           </div>
           <div class="card" id="finished">
-          <h5><a style="color: black;" href=<?php echo ("./details.php?".$in)?>><?php if($data[$i]['action']=='finished') {echo 'Finished : '.$j['bookname'];}?></a></h5>
-          </div>
-          </div>
+          <h5 style="color: orange;">Finished : </h5>
+          <?php $i=0;  while($i<$num){
+            $in=$data[$i]['bid'];
+            $q="SELECT `bookname` FROM `books` WHERE `bid` = $in ";
+            $e=mysqli_query($con,$q);
+            $j=mysqli_fetch_assoc($e);
+            ?>
+          <h5><a style="color: black;" href=<?php echo ("./details.php?".$in)?>><?php if($data[$i]['action']=='finished') {echo $j['bookname'];}?></a></h5>
           <?php $i++;} ?>
+          </div>
+          </div>
+          
       </div>
   </div>
   <?php } else{header("location: error.php");}?>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.modal1');
+    var instances = M.Modal.init(elems, options);
+  });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.modal');
+    var instances = M.Modal.init(elems, {});
+  });
+  </script>
 </body>
 </html>

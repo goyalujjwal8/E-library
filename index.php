@@ -10,46 +10,59 @@
 <body>
 <?php
 
-include "header.php";
-include "conn.php";
+    include "header.php";
+    include "conn.php";
 
-if(isset($_POST['upload'])){
-  $action=$_POST['action'];
-  $r="select uid from has_book where action='reading'";
-  $s=mysqli_query($con,$r);
+    if(isset($_POST['upload'])){
+        $action=$_POST['action'];
+        $r="select action from has_book where uid='$_SESSION[uid]'";
+        $s=mysqli_query($con,$r);
+        $d=mysqli_fetch_assoc($s);
+        // var_dump($_SESSION['uid']);
+        // var_dump($res['action']);
+        // var_dump(mysqli_num_rows($s));
+        // die();
+    if($d['action']==$_POST['action']){
+
+        echo "<div class='alert hide'>
+        <span class='fas fa-exclamation-circle'></span>
+        <span class='msg'>First Mark the Currently Reading Book Finished</span>
+          <span class='fas fa-times'></span>
+        </div>";
+    }else{
+      
+        $u= "SELECT uid FROM users WHERE email = '$_SESSION[email]'";
+        $e=mysqli_query($con,$u);
+        $result=mysqli_fetch_assoc($e);
+        
+        $q="INSERT INTO `has_book` (`uid`,`bid`,`action`) VALUES ('$result[uid]', '$_POST[bid]', '$action') ON DUPLICATE KEY UPDATE    
+              `action`='$action'"; 
+        $d = mysqli_query($con,$q);
+
+        echo "<div class='alert hide'>
+        <span class='fas fa-exclamation-circle'></span>
+        <span class='msg'>Response Saved</span>
+          <span class='fas fa-times'></span>
+        </div>";
+    }
+ }
  
-if(($_POST['action']=='reading')&&( mysqli_num_rows($s)>0)){
 
-    echo "<script>alert('First mark the currently reading book finished')</script>";
-}else{
-  
- $u= "SELECT uid FROM users WHERE email = '$_SESSION[email]'";
- $e=mysqli_query($con,$u);
- $result=mysqli_fetch_assoc($e);
- 
-$q="INSERT INTO `has_book` (`uid`,`bid`,`action`) VALUES ('$result[uid]', '$_POST[bid]', '$action') ON DUPLICATE KEY UPDATE    
-      `action`='$action'"; 
-$d = mysqli_query($con,$q);
-}
-}
+        $query = "select * from books";
+        $data = mysqli_query($con,$query);
+        $total = mysqli_num_rows($data);
+        $daa = [];
+        if($data->num_rows>0){
+        while ($row = mysqli_fetch_array($data)) {
+            $daa[] = $row;
+        }
+        echo "  <div class='Container'>";
+        $i = 0;
 
-
-
-$query = "select * from books";
-$data = mysqli_query($con,$query);
-$total = mysqli_num_rows($data);
-$daa = [];
-if($data->num_rows>0){
-while ($row = mysqli_fetch_array($data)) {
-    $daa[] = $row;
-}
-echo "  <div class='Container'>";
-$i = 0;
-
-while($i < count($daa)){
-  $count = 0;
- echo " <div class='row'>";
-  while ($count < 3 && $i<count($daa)) {
+        while($i < count($daa)){
+          $count = 0;
+        echo " <div class='row'>";
+          while ($count < 3 && $i<count($daa)) {
 
    ?>
       
@@ -66,7 +79,7 @@ while($i < count($daa)){
             
             <?php if (isset($_SESSION['email']) && isset ($_SESSION['usertype'])){ ?>
               <div class="card-action">
-            <a href= <?php echo ("./details.php?".$daa[$i]["bid"])?> style="size: 20px;">Details</a>
+              <a href= <?php echo ("./details.php?".$daa[$i]["bid"])?> style="size: 20px;">Details</a>
             </div>
             <div class='card-action'>
               <form action='#' method="POST" name="form1">
@@ -74,18 +87,14 @@ while($i < count($daa)){
                 <label>
               <input name="bid" value='<?php echo $daa[$i]["bid"]?>' hidden></label>
               <label>
-                  <input id= 'input1' name='action' value='finished' type='radio'/>
-                  <span>Finished</span>
-                </label>
-                <label>
                   <input id = 'input2' name='action' value='wishlisted' type='radio'/>
                   <span>Add to Wishlist</span>
-                </label>
-                <label>
+              </label>
+              <label>
                   <input id='input3' name='action' value='reading'  type='radio'/>
                   <span>Reading</span>
-                </label>
-                <button type ="submit" name="upload" value="1" style="color: orange;">SAVE RESPONSE</button>
+              </label>
+                <button class="war" type ="submit" name="upload" value="1" style="color: white;">SAVE RESPONSE</button>
               </p>
               </form>
             </div>
@@ -93,7 +102,7 @@ while($i < count($daa)){
         </div>
        </div>
     
-      <?php
+   <?php
        $count++;
        $i++;
        }
@@ -101,7 +110,17 @@ while($i < count($daa)){
    ?>
    </div>
       </div>
-      <?php }else{echo "$results";}?>
-
+<?php }else{echo "$results";}?>
+<script>
+     $(function(){
+        $('.alert').addClass("show");
+        $('.alert').removeClass("hide");
+        $('.alert').addClass("showAlert");
+        setTimeout(function(){
+          $('.alert').removeClass("show");
+          $('.alert').addClass("hide");
+        },5000);
+      });
+  </script>
 </body>
 </html>

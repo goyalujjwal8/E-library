@@ -17,7 +17,7 @@
        $email = $_POST['email'];
        $password = $_POST['password'];
 
-      //  $pass= password_hash($password,PASSWORD_BCRYPT);
+        //$pass= password_hash($password,PASSWORD_BCRYPT);
       //  var_dump($pass);
    
        $s="SELECT * FROM users WHERE email='$email' && password='$password'";
@@ -25,21 +25,21 @@
       
       
        if(mysqli_num_rows($result)>0){
-    
-          $q = "SELECT * FROM users WHERE email = '$email'";
-          $e=mysqli_query($con,$q);
-         $r= mysqli_fetch_assoc($e);
-          header("location:index.php?$r[usertype]");
-          $_SESSION['usertype']=$r['usertype'];
-          $_SESSION['email']=$email;
-              $_SESSION['name']=$r['name'];
-              $_SESSION['uid']=$r['uid'];
+      
+            $q = "SELECT * FROM users WHERE email = '$email'";
+            $e=mysqli_query($con,$q);
+            $r= mysqli_fetch_assoc($e);
+            header("location:index.php?$r[usertype]");
+            $_SESSION['usertype']=$r['usertype'];
+            $_SESSION['email']=$email;
+            $_SESSION['name']=$r['name'];
+            $_SESSION['uid']=$r['uid'];
       }else{ 
-        echo "<script>alert('Enter Valid Email/Password')</script>";
+            echo "<script>alert('Enter Valid Email/Password')</script>";
       }
     }
-
-        ?>
+ ?>
+ 
         <div class="user">
         <div class="login-page">
           <div class="form">

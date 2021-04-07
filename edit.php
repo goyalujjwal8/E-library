@@ -10,58 +10,75 @@
     <?php
     include "./header.php";
     include "conn.php";
-    if ((isset($_SESSION['email']) && $_SESSION['usertype']==1)||(isset($_SESSION['email']) && $_SESSION['usertype']==0)){
+    if ((isset($_SESSION['email']) && $_SESSION['usertype']==1)){
 
-    if(isset($_POST['bid'])){
-    $bid=$_POST['bid'];
+            if(isset($_POST['bid'])){
+                $bid=$_POST['bid'];
 
-    $bookname='';
-    $authorname='';
-    $bookdetails='';
+                $bookname='';
+                $authorname='';
+                $bookdetails='';
 
-    if(empty(trim($_POST['bookname']))){
-        $bookname_err = "Bookname cannot be blank";
-        echo "<script>alert('$bookname_err')</script>";
-    }
-    else{
-        $bookname = trim($_POST['bookname']);
-    }
+                if(empty(trim($_POST['bookname']))){
+                    $bookname_err = "Bookname cannot be blank";
+                    echo "<div class='alert hide'>
+                    <span class='fas fa-exclamation-circle'></span>
+                    <span class='msg'>$bookname_err</span>
+                      <span class='fas fa-times'></span>
+                    </div>";
+                }
+                else{
+                    $bookname = trim($_POST['bookname']);
+                }
 
-    if(empty(trim($_POST['authorname']))){
-        $authorname_err = "Authorname cannot be blank";
-        echo "<script>alert('$authorname_err')</script>";
-    }
-    else{
-        $authorname = trim($_POST['authorname']);
-    }
-    if(empty(trim($_POST['bookdetails']))){
-        $bookdetails_err = "Bookdetails cannot be blank";
-        echo "<script>alert('$bookdetails_err')</script>";
-    }
-    else{
-        $bookdetails = trim($_POST['bookdetails']);
-    }
+                if(empty(trim($_POST['authorname']))){
+                    $authorname_err = "Authorname cannot be blank";
+                    echo "<div class='alert hide'>
+                    <span class='fas fa-exclamation-circle'></span>
+                    <span class='msg'>$authorname_err</span>
+                      <span class='fas fa-times'></span>
+                    </div>";
+                }
+                else{
+                    $authorname = trim($_POST['authorname']);
+                }
+                if(empty(trim($_POST['bookdetails']))){
+                    $bookdetails_err = "Bookdetails cannot be blank";
+                    echo "<div class='alert hide'>
+                    <span class='fas fa-exclamation-circle'></span>
+                    <span class='msg'>$bookdetails_err</span>
+                      <span class='fas fa-times'></span>
+                    </div>";
+                }
+                else{
+                    $bookdetails = trim($_POST['bookdetails']);
+                }
 
-    $target="./upload/image".basename($_FILES['file']['name']);
-    $bookimage=$_FILES['file']['name'];
+                $target="./upload/image".basename($_FILES['file']['name']);
+                $bookimage=$_FILES['file']['name'];
 
-    $target1="./upload/pdf/".basename($_FILES['pdf']['name']);
-    $pdf=$_FILES['pdf']['name'];
+                        move_uploaded_file($_FILES['file']['tmp_name'],$target);
 
-               move_uploaded_file($_FILES['file']['tmp_name'],$target);
-
-               move_uploaded_file($_FILES['pdf']['tmp_name'],$target1);
-  
-     $sql="UPDATE `books` SET `bookname` = '$bookname',`authorname` = '$authorname', `bookdetails` = '$bookdetails', `bookimage`='$bookimage' WHERE `bid`='$bid'" ;
-    
-     if($con->query($sql)==true){
-        echo "<script>alert('Book Editted Successfully')</script>";
-    }
-    else{
-        echo "Error: $sql<br> $con->error";
-    }
-   }
-   $con->close();
+                        if(empty($bookname_err) && empty($authorname_err) && empty($bookdetails_err)){
+            
+                $sql="UPDATE `books` SET `bookname` = '$bookname',`authorname` = '$authorname', `bookdetails` = '$bookdetails', `bookimage`='$bookimage' WHERE `bid`='$bid'" ;
+                
+                if($con->query($sql)==true){
+                    echo "<div class='alert hide'>
+                    <span class='fas fa-exclamation-circle'></span>
+                    <span class='msg'>Book Editted Successfully</span>
+                      <span class='fas fa-times'></span>
+                    </div>";
+                }}
+                else{
+                    echo "<div class='alert hide'>
+                    <span class='fas fa-exclamation-circle'></span>
+                    <span class='msg'>Fill All the Required Fields</span>
+                      <span class='fas fa-times'></span>
+                    </div>";
+                }
+        }
+      $con->close();
     ?>
     <?php
     include "conn.php";
@@ -71,7 +88,7 @@
     $result = mysqli_fetch_assoc($data);
     ?>
     <div class="user">
-    <p class="msg">Enter New Book Details</p>
+    <p class="msg" style="color: black;">Enter New Book Details</p>
         <div class="login-page">
             <div class="form">
                 <form action="#" method="post" class="login-form"  enctype="multipart/form-data">
@@ -81,13 +98,23 @@
                     <textarea name='bookdetails' id='bookdetails'><?php echo $result['bookdetails'];?></textarea>
                     <label style="color: black;">Book Cover</label>
                     <input type='file' name='file' id='bookimage' value="<?php echo $result['bookimage']?>">
-                    <label style="color: black;">Book pdf</label> 
-                    <input type='file' name='pdf' id='pdf' value="<?php echo $result['pdf']?>">
+                    
                 <button>SAVE</button><br>
                 </form>
             </div>
       </div>
 </div>
 <?php } else{header("location: error.php");}?>
+<script>
+     $(function(){
+        $('.alert').addClass("show");
+        $('.alert').removeClass("hide");
+        $('.alert').addClass("showAlert");
+        setTimeout(function(){
+          $('.alert').removeClass("show");
+          $('.alert').addClass("hide");
+        },5000);
+      });
+  </script>
 </body>
 </html>
