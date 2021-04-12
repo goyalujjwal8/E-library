@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>e-library</title>
+    <title>E-Library</title><link rel="shortcut icon" href="./image/download.png" type="image/x-icon">
 </head>
 <body>
     <?php
@@ -54,14 +54,25 @@
                     $bookdetails = trim($_POST['bookdetails']);
                 }
 
+                if(empty(trim($_POST['count']))){
+                  $count_err = "Book Count Cannot be Blank";
+                  echo "<div class='alert hide'>
+      <span class='fas fa-exclamation-circle'></span>
+      <span class='msg'>$count_err</span>
+        <span class='fas fa-times'></span>
+      </div>";
+              }
+              else{
+                  $count = trim($_POST['count']);
+              }
                 $target="./upload/image".basename($_FILES['file']['name']);
                 $bookimage=$_FILES['file']['name'];
 
                         move_uploaded_file($_FILES['file']['tmp_name'],$target);
 
-                        if(empty($bookname_err) && empty($authorname_err) && empty($bookdetails_err)){
+                        if(empty($bookname_err) && empty($authorname_err) && empty($bookdetails_err) && empty($count_err)){
             
-                $sql="UPDATE `books` SET `bookname` = '$bookname',`authorname` = '$authorname', `bookdetails` = '$bookdetails', `bookimage`='$bookimage' WHERE `bid`='$bid'" ;
+                $sql="UPDATE `books` SET `bookname` = '$bookname',`authorname` = '$authorname', `bookdetails` = '$bookdetails', `bookimage`='$bookimage', `count`='$count' WHERE `bid`='$bid'" ;
                 
                 if($con->query($sql)==true){
                     echo "<div class='alert hide'>
@@ -96,6 +107,7 @@
                     <input type='text' name='bookname' id='bookname' value="<?php echo $result['bookname'];?>">
                     <input type='text' name='authorname' id='authorname' value="<?php echo $result['authorname'];?>">
                     <textarea name='bookdetails' id='bookdetails'><?php echo $result['bookdetails'];?></textarea>
+                    <input type="number" name="count" id="count" value="<?php echo $result['count'];?>">
                     <label style="color: black;">Book Cover</label>
                     <input type='file' name='file' id='bookimage' value="<?php echo $result['bookimage']?>">
                     

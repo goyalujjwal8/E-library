@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>E-Library</title><link rel="shortcut icon" href="./image/download.png" type="image/x-icon">
 </head>
 <body>
 <?php
@@ -24,8 +24,9 @@ if($num>0){
  }}
 
  ?>
+ <div>
   <div class="row">
-    <div class="col s6 m5">
+    <div class="col s12 m6">
             <div class="card">
                 <div class="card-image">
                   <img src="./upload/image/photo.jfif" style="background:center"><br>
@@ -38,7 +39,7 @@ if($num>0){
               </div> 
           </div>
     </div>
-    <div class="col s6 m5">
+    <div class="col s12 m6">
             <div class="card-content grey lighten-4">
           <div class="card" id="reading">
           <h5 style="color: orange;">Reading : </h5>
@@ -90,7 +91,7 @@ if($num>0){
           <?php $i++;} ?>
           </div>
           </div>
-          
+          </div>
       </div>
   </div>
   <?php } else{header("location: error.php");}?>

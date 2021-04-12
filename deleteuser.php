@@ -5,9 +5,7 @@
     $query = "DELETE FROM `users` WHERE `uid` = $in";
     $data = mysqli_query($con,$query);
      
-        echo "<script>alert('User Deleted Successfully')</script>";
         header('location: userlist.php');
-  
      
     $con->close();
  ?>

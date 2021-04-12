@@ -11,19 +11,19 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css?<?php echo time() ?>">
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<body>
+<body0> <div>
        <nav>
             <a href="#" data-target="slide-out" class="sidenav-trigger" style="float: right;"><i class="material-icons" >menu</i></a>
             <div class="nav-wrapper" style="background-color: orange;">
                     <a href="index.php" class="brand-logo" style=" margin-left:2rem;">E-Library</a>
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
-                      <li><a href='index.php' style=" margin-right:2rem;">Book Listing</a></li>
                     </ul>
  
                <ul class="right hide-on-med-and-down">
                  <?php 
                     if(!isset($_SESSION['email'])){
-                    echo "<li><a href='login.php'>Login</a></li>";
+                    echo "<li><a href='login.php' >Login</a></li>
+                    <li style='margin-right:2rem;'><a href='register.php' >Register</a></li>";
                     }
                     if (isset($_SESSION['email']) && $_SESSION['usertype'] == 1) {
                         echo "
@@ -81,6 +81,7 @@
                 </li>          
             </ul>
     </nav>
+    </div>
         <script>
         document.addEventListener('DOMContentLoaded', function() {
             const elems = document.querySelectorAll('.sidenav');

@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>E-Library</title><link rel="shortcut icon" href="./image/download.png" type="image/x-icon">
+    
 </head>
 <body>
 <?php 
@@ -88,7 +89,7 @@ if(isset($_POST['upload'])){
        <input type="email" name="email" id="email" placeholder="Enter your Email *"></input><br>
        <input type="password" name="password" id="password" placeholder="Enter your password *"><br>
        <button type ="submit" name="upload" value="1">Register</button>
-       <p class="message">Already Registered ?<a href="login.php">Login</a></p>
+       <p class="message">Already Registered?<a href="login.php"> Login </a></p>
        </form>
    </div>
 </div>

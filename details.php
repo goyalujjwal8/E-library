@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<!DOCTYPE html>  
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>E-Library</title><link rel="shortcut icon" href="./image/download.png" type="image/x-icon">
 </head>
 <body>
 <?php
@@ -16,24 +14,27 @@
         $data = mysqli_query($con,$query);
         $result = mysqli_fetch_assoc($data);
  ?>
+ <div class="container">
    <div class="row" >
-    <div class="col s6">
-      <div class="card">
+    <div class="col s12 m6"><h5>
+      <div class="card" >
         <div class="card-image" >
-          <img src="<?php echo './upload/image/'.$result['bookimage'];?>" style="height: 850px;">
+          <img src="<?php echo './upload/image/'.$result['bookimage'];?>" style="height: 60rem;">
         </div>
       </div>
     </div>
-      <div class="col s6">
-        <div class="card-content">
-          <span class="card-title"><h1><?php echo $result['bookname'];?></h1></span>
-          <h4 style="margin-left: 20rem;">By-<?php echo $result['authorname'];?></h4><br>
-          <h5><textarea style="block-size: 560px;"><?php echo $result['bookdetails'];?></textarea></h5>
-        </div>
-        <div class="card-action" style="margin-top:0rem; text-align:center">
-        <?php  if (isset($_SESSION['email']) && $_SESSION['usertype'] == 0) {
   
-               }else if(isset($_SESSION['email']) && $_SESSION['usertype'] == 1){
+    <div class="col s12 m6">
+      <div class="card" style="height: 60rem;">
+        <div class="card-content">
+          <div class="section"><span class="card-title"><?php echo $result['bookname'];?></span></div>
+          <div class="section"><span>By-<?php echo $result['authorname'];?></span></div>
+          <div class="section"><span><?php echo $result['bookdetails'];?></spanx></div>
+        </div>
+        <div class="card-action" style=" position: absolute;
+        bottom: 0;
+        left: 0;">
+        <?php if(isset($_SESSION['email']) && $_SESSION['usertype'] == 1){
         
                 echo "<ul>
                 <li>
@@ -49,13 +50,17 @@
                     <a href='#' class='modal-close waves-effect waves-green btn-flat'>Disagree</a>
                   </div>
                 </div>
+         <?php } ?>
+        </div>
                 </li>
                 </ul>";
               }
            ?>
           </div>
         </div>
-      </div>
+     </div>
+   </div>
+ </div>
     <script> 
     document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.modal1');

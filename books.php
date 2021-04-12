@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>e-library</title>
+    <title>E-Library</title><link rel="shortcut icon" href="./image/download.png" type="image/x-icon">
 </head>
 <body>
     
@@ -18,7 +18,7 @@
                 $bookname = '';
                 $authorname = '';
                 $bookdetails = '';
-
+                $count = '';
                 if(empty(trim($_POST['bookname']))){
                     $bookname_err = "Bookname Cannot be Blank";
                     echo "<div class='alert hide'>
@@ -53,14 +53,27 @@
                 else{
                     $bookdetails = trim($_POST['bookdetails']);
                 }
+
+                if(empty(trim($_POST['count']))){
+                  $count_err = "Book Count Cannot be Blank";
+                  echo "<div class='alert hide'>
+      <span class='fas fa-exclamation-circle'></span>
+      <span class='msg'>$count_err</span>
+        <span class='fas fa-times'></span>
+      </div>";
+              }
+              else{
+                  $count = trim($_POST['count']);
+              }
+
                 $target="./upload/image/".basename($_FILES['file']['name']);
                 $bookimage=$_FILES['file']['name'];
 
                 move_uploaded_file($_FILES['file']['tmp_name'],$target);
                     
-                if(empty($bookname_err) && empty($authorname_err) && empty($bookdetails_err)){
+                if(empty($bookname_err) && empty($authorname_err) && empty($bookdetails_err) && empty($count_err)){
 
-                $query="INSERT INTO  `books` (`bid`, `bookname`, `authorname`, `bookdetails`, `bookimage`) VALUES (NULL, '$bookname','$authorname', '$bookdetails', '$bookimage')";
+                $query="INSERT INTO  `books` (`bid`, `bookname`, `authorname`, `bookdetails`, `bookimage`, `count`) VALUES (NULL, '$bookname','$authorname', '$bookdetails', '$bookimage', '$count')";
                 $insert=mysqli_query($con,$query);
                 if($insert==true){  
                 echo "<div class='alert hide'>
@@ -81,6 +94,7 @@ $con->close();
                  <input type="text" name="bookname" id="bookname" placeholder="Enter Book Name *">
                 <input type="text" name="authorname" id="authorname" placeholder="Enter Author Name *">
                 <textarea name="bookdetails" id="bookdetails" placeholder="Enter Book Details *"></textarea>
+                <input type="number" name="count" id="count" placeholder="Enter Book Count *">
                 <label style="color: black;">Book Cover</label>
                 <input type="file" id="file" name="file" accept="image/x-png,image/gif,image/jpeg">
     

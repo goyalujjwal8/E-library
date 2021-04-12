@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>login</title>
+    <title>E-Library</title>
 </head>
 <body>
 <?php 
@@ -35,7 +35,11 @@
             $_SESSION['name']=$r['name'];
             $_SESSION['uid']=$r['uid'];
       }else{ 
-            echo "<script>alert('Enter Valid Email/Password')</script>";
+            echo "<div class='alert hide'>
+                    <span class='fas fa-exclamation-circle'></span>
+                    <span class='msg'>Enter Valid Email/Password</span>
+                      <span class='fas fa-times'></span>
+                    </div>";
       }
     }
  ?>
@@ -44,14 +48,24 @@
         <div class="login-page">
           <div class="form">
           <form action="./login.php" method="post" class="login-form">
-             <input type="email" placeholder="Email *" name="email" required>
-             <input type="password" placeholder="Password *" name="password" required>
+             <input type="email" placeholder="Email *" name="email">
+             <input type="password" placeholder="Password *" name="password">
              <button name="submit">Login</button>
-             <p class="message">Not Registered ?<a href="register.php">Register</a></p>
+             <p class="message">Not Registered? <a href="register.php">Register</a></p>
             </form>
           </div>
         </div>
         </div>               
-        
+        <script>
+     $(function(){
+        $('.alert').addClass("show");
+        $('.alert').removeClass("hide");
+        $('.alert').addClass("showAlert");
+        setTimeout(function(){
+          $('.alert').removeClass("show");
+          $('.alert').addClass("hide");
+        },5000);
+      });
+  </script>
 </body>
 </html>
